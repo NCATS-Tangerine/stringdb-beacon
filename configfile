@@ -1,0 +1,8 @@
+[database]
+  username: neo4j
+  password: password
+  url: bolt://localhost:7687
+
+[server]
+  host: localhost
+  port: 8080
