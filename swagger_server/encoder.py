@@ -1,9 +1,9 @@
-from connexion.decorators import produces
+from connexion.apps import flask_app
 from six import iteritems
 from swagger_server.models.base_model_ import Model
 from flask import json
 
-class JSONEncoder(json.JSONEncoder):
+class JSONEncoder(flask_app.FlaskJSONEncoder):
     include_nulls = False
 
     def default(self, o):
@@ -16,4 +16,4 @@ class JSONEncoder(json.JSONEncoder):
                 attr = o.attribute_map[attr]
                 dikt[attr] = value
             return dikt
-        return produces.JSONEncoder.default(self, o)
+        return flask_app.FlaskJSONEncoder.default(self, o)
