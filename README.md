@@ -48,11 +48,6 @@ Then with Docker installed, you can build an image from the `Dockerfile` provide
 ```shell
 cd string-db
 docker build -t ncats:stringdb .
-```
-
-Within the Docker container, the Flask app is set to run at `0.0.0.0:5000`. You can re-map ports when you run a Docker image with the `-p` flag.
-
-```shell
 docker run --net=host ncats:stringdb
 ```
 
@@ -69,4 +64,3 @@ This beacon is a work in progress. Here are a few points that still need to be a
 =======
 # stringdb-beacon
 Knowledge Beacon Wrapper for the StringDb resource (https://string-db.org/)
-
