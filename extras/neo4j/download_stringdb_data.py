@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 
 urls=[
-    'https://string-db.org/download/protein.links.v10.5/9606.protein.links.v10.5.txt.gz',
-    'https://string-db.org/download/protein.aliases.v10.5/9606.protein.aliases.v10.5.txt.gz'
+    'https://string-db.org/download/protein.aliases.v10.5/9606.protein.aliases.v10.5.txt.gz',
+    'https://string-db.org/download/species.v10.5.txt',
+    'https://string-db.org/download/protein.actions.v10.5/9606.protein.actions.v10.5.txt.gz'
 ]
 
 from urllib.request import FancyURLopener
@@ -40,9 +41,9 @@ if __name__ == '__main__':
         with open(txt, 'r+') as f:
             line = f.readline()
             lines = [l.strip() for l in line.split('##') if (l is not '##') and (l is not '') and (l is not '\n')]
-            if len(lines) > 1:
+            fixed = '   '.join(lines)
+            if len(lines) > 1 or len(line.strip()) != len(fixed):
                 print('Fixing tsv header for', txt)
-                fixed = '\t'.join(lines)
                 while len(fixed) < len(line) - 1:
                     fixed += ' '
                 fixed += '\n'
