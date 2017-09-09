@@ -53,4 +53,4 @@ docker exec -i stringdbbeacon_db_1 /var/lib/neo4j/bin/neo4j-shell -c < load.cql
 This beacon is a work in progress. Here are a few points that still need to be addressed
 - So far the evidence and exactmatches API are not implemented.
 - I have only been using data for *Homo sapiens*. We should also include mouse, rat, yeast, c. elegans, drosphila, and zebrafish species as well, to complement monarch biolink.
-- I have only been using data for protein aliases and actions. Once we introduce other species we will also need to use `species.v10.5.txt` which is available in the download section of string-db. Even so, these are only three out of the many data files offered by string-db. Someone who is more familiar with the data should go through all of the data files and build up a better data model.
+- Only a very small subset of the database files are being used.
