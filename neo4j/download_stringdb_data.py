@@ -41,7 +41,7 @@ if __name__ == '__main__':
         with open(txt, 'r+') as f:
             line = f.readline()
             lines = [l.strip() for l in line.split('##') if (l is not '##') and (l is not '') and (l is not '\n')]
-            fixed = '   '.join(lines)
+            fixed = '	'.join(lines)
             if len(lines) > 1 or len(line.strip()) != len(fixed):
                 print('Fixing tsv header for', txt)
                 while len(fixed) < len(line) - 1:
