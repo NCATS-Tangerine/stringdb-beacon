@@ -1,33 +1,23 @@
+import os
+
 from neo4j.v1 import GraphDatabase, basic_auth
-from flask import g, abort
-from configparser import ConfigParser
+from flask import abort
 
-
-config = ConfigParser()
-config.read('configfile')
-
-username = config.get('database', 'username')
-password = config.get('database', 'password')
-url = config.get('database', 'url')
-
-try:
-    driver = GraphDatabase.driver(url, auth=basic_auth(username, password))
-except Exception as e:
-    print("Exception thrown while trying to connect to neo4j database.")
-    print("Are you sure it's online? Check: " + url)
-    print("Raising exception:\n")
-    raise e
-
+driver = None
 
 def run(query, param={}):
-    return get_db().run(query, param)
+    return get_session().run(query, param)
 
-def get_db():
+def get_session():
     global driver
-    if not hasattr(g, 'neo4j_db'):
+    if driver is None:
         try:
-            g.neo4j_db = driver.session()
+            neo4j_auth = os.environ.get('NEO4J_AUTH')
+            username, password = neo4j_auth.split('/', 1)
+            driver = GraphDatabase.driver('bolt://db:7687', auth=basic_auth(username, password))
         except Exception as e:
-            abort(500, "Error connecting to database")
+            abort(500, e)
+    return driver.session()
 
-    return g.neo4j_db
+def close_session():
+    get_session.close()

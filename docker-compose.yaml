@@ -1,0 +1,26 @@
+version: '3'
+services:
+  web:
+    build: .
+    environment:
+      - NEO4J_AUTH=${NEO4J_AUTH:-neo4j/password}
+    ports:
+      - "5000:5000"
+    depends_on:
+      - "db"
+  db:
+    image: neo4j:3.0
+    environment:
+      - NEO4J_AUTH=${NEO4J_AUTH:-neo4j/password}
+      # This sets java's heap size to 1G. If you get java.lang.OutOfMemoryError
+      # then you may need to increase this.
+      - _JAVA_OPTIONS="-Xmx1g"
+    ports:
+      - "7474:7474"
+      - "7473:7473"
+      - "7687:7687"
+    volumes:
+      - $HOME/neo4j/data:/data
+      - $HOME/neo4j/import:/var/lib/neo4j/import
+      - $HOME/neo4j/logs:/logs
+      - $HOME/neo4j/conf/:/conf/
