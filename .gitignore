@@ -106,3 +106,7 @@ ENV/
 
 *.txt
 *.gz
+
+# docker
+docker-compose.yaml
+
