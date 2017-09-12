@@ -40,7 +40,7 @@ The API should now be running at http://localhost:5000/api, and the Neo4j browse
 
 ## Loading Data
 
-String-db hosts its database at https://string-db.org/cgi/download.pl. You can get subsets of the database by selecting a species, so far we have only been using *Homo sapiens*. There is a python script `extras/neo4j/download_stringdb_data.py` that can be used to download, unzip, and properly format the data for *Homo sapiens*. This script must be run with version 3 of python, in the terminal run `python --version` to check your version. If you will not be using this script you will need to manually fix TSV headers in some of the data files.
+String-db hosts its database at https://string-db.org/cgi/download.pl. You can get subsets of the database by selecting a species, so far we have only been using *Homo sapiens*. There is a python script `neo4j/download_stringdb_data.py` that can be used to download, unzip, and properly format the data for *Homo sapiens*. This script must be run with version 3 of python, in the terminal run `python --version` to check your version. If you will not be using this script you will need to manually fix TSV headers in some of the data files.
 
 ```
 cd stringdb-beacon/neo4j
@@ -49,7 +49,7 @@ python3 download_stringdb_data.py
 
 If you have used docker-compose to run the application, you will have a `neo4j/import` directory mounted in your home directory. Move the resulting .txt files that you've downloaded from StringDb into this directory so they can be picked up by the Neo4j shell.
 
-Your Neo4j docker container should be named stringdbbeacon_db_1, run `docker-compose ps` to confirm this. We will execute the load.cql file, in the `extras/neo4j` directory, using the Neo4j shell.
+Your Neo4j docker container should be named stringdbbeacon_db_1, run `docker-compose ps` to confirm this. We will execute the load.cql file, in the `neo4j` directory, using the Neo4j shell.
 
 ```
 docker exec -i stringdbbeacon_db_1 /var/lib/neo4j/bin/neo4j-shell -c < load.cql
