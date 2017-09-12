@@ -12,11 +12,13 @@ This example uses the [Connexion](https://github.com/zalando/connexion) library 
 ## Running with Docker
 
 Use [Docker Compose](https://docs.docker.com/compose/) to build and run the application. 
-Before using compose in the project, you should first copy the docker-compose.yaml-template file into docker-compose.yaml.
+Before using compose in the project, you should first copy the configuration file:
 
-The host machines `NEO4J_AUTH` environment variable is passed into the docker containers. 
+```
+cp docker-compose.yaml-template docker-compose.yaml
+```
 
-If it is not set then it will default to neo4j/password.  You can also directly modify the default password (plus Docker port redirections, etc.) 
+The host machines `NEO4J_AUTH` environment variable is passed into the docker containers.  If it is not set then it will default to neo4j/password.  You can also directly modify the default password (plus Docker port redirections, etc.) 
 in this 'docker-compose.yaml' file.  
 
 Once ready to build, type the following into the terminal::
