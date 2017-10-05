@@ -5,11 +5,11 @@ services:
     environment:
       - NEO4J_AUTH=${NEO4J_AUTH:-neo4j/password}
     ports:
-      - "5000:5000"
+      - "8071:5000"
     depends_on:
       - "db"
   db:
-    image: neo4j:3.0
+    image: neo4j
     environment:
       - NEO4J_AUTH=${NEO4J_AUTH:-neo4j/password}
       # This sets java's heap size to 1G. If you get java.lang.OutOfMemoryError
@@ -20,7 +20,7 @@ services:
       - "7473:7473"
       - "7687:7687"
     volumes:
+      # NOTE: if docker-compose is run under 'sudo' then $HOME will be 'root'
       - $HOME/neo4j/data:/data
-      - $HOME/neo4j/import:/var/lib/neo4j/import
-      - $HOME/neo4j/logs:/logs
-      - $HOME/neo4j/conf/:/conf/
+      - $HOME/neo4j/import:/import
+      - $HOME/neo4j/logs:/logs 
