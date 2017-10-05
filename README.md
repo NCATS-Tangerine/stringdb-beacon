@@ -24,9 +24,9 @@ in this 'docker-compose.yaml' file.
 Once ready to build, type the following into the terminal::
 
 ```
+export NEO4J_AUTH=neo4j/<password>  # if you wish to change your default password
 cd stringdb-beacon
 docker-compose build
-export NEO4J_AUTH=<username>/<password>  # if you wish to change your default password
 docker-compose up
 ```
 
