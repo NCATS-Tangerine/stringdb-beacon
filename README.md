@@ -34,7 +34,7 @@ docker-compose up
 
 The Neo4j container's data, import, logs, and config directories will be mounted on the host machine at `$HOME/neo4j`. All the data in the database, including the username and password, will persist in the `$HOME/neo4j/data` directory over multiple runs of the container.
 
-If the docker-compose commands are is giving you trouble, try running them as the system administrator with the `sudo` command.
+> **Note:** If the docker-compose commands are is giving you trouble, try running them as the system administrator with the `sudo` command. Remember, though, that if you are running  your commands as 'sudo', then $HOME will actually be '/root'. This has consequences for data importation (see below)
 
 The API should now be running at http://localhost:5000/api, and the Neo4j browser user interface should be running at http://localhost:7474. You can open your browser with these addresses to see these applications in action. You wont see much until you load data into the database, though.
 
@@ -47,7 +47,7 @@ cd stringdb-beacon/neo4j
 python3 download_stringdb_data.py
 ```
 
-If you have used docker-compose to run the application, you will have a `neo4j/import` directory mounted in your home directory. Move the resulting .txt files that you've downloaded from StringDb into this directory so they can be picked up by the Neo4j shell.
+If you have used docker-compose to run the application, you will have a `neo4j/import` directory mounted in your $HOME directory. If you are running docker-compose as 'sudo', then you should also run the download script as 'sudo' so thta $HOME defaults to '/root', which is where your Docker neo4j database will expect to see the data.
 
 Your Neo4j docker container should be named stringdbbeacon_db_1, run `docker-compose ps` to confirm this. We will execute the load.cql file, in the `neo4j` directory, using the Neo4j shell.
 
@@ -55,7 +55,7 @@ Your Neo4j docker container should be named stringdbbeacon_db_1, run `docker-com
 docker exec -i stringdbbeacon_db_1 /var/lib/neo4j/bin/neo4j-shell -c < load.cql
 ```
 
-> **Note:** If you see `java.lang.OutOfMemoryError: Java heap space`, then you may need to increase the Java heap size with the `_JAVA_OPTIONS` environment variable in `docker-compose.yaml`.
+> **Note:** Again, if running other commands as 'sudo', then run this command as 'sudo' as well. If you see `java.lang.OutOfMemoryError: Java heap space`, then you may need to increase the Java heap size with the `_JAVA_OPTIONS` environment variable in `docker-compose.yaml`.
 
 
 ## Issues
