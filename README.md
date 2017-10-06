@@ -49,13 +49,22 @@ python3 download_stringdb_data.py
 
 If you have used docker-compose to run the application, you will have a `neo4j/import` directory mounted in your $HOME directory. If you are running docker-compose as 'sudo', this directory may be '/root' in which case, you should may also run the download script as 'sudo' so thta $HOME defaults to '/root', which is where your Docker neo4j database will expect to see the data. If your $HOME directory is still your normal user home directory, you can likely still run this download script without sudo.
 
-Your Neo4j docker container should be named stringdbbeacon_db_1, run `docker-compose ps` to confirm this. We will execute the load.cql file, in the `neo4j` directory, using the Neo4j shell.
+Your Neo4j docker container should be named stringdbbeacon_db_1, run `docker-compose ps` to confirm this. We will execute the load.cql file, which was copied over to the 'import' directory with the downloaded data, sing the Neo4j shell.
+
+Before loading the data, you first turn off the docker container (from within the stringdb-beacon directory):
 
 ```
-docker exec -i stringdbbeacon_db_1 /var/lib/neo4j/bin/neo4j-shell -c < load.cql
+sudo docker-compose stop db
+
 ```
 
-> **Note:** Again, if running other commands as 'sudo', then run this command as 'sudo' as well. If you see `java.lang.OutOfMemoryError: Java heap space`, then you may need to increase the Java heap size with the `_JAVA_OPTIONS` environment variable in `docker-compose.yaml`.
+This will allow data loading directly using the neo4j-shell script, as follows:
+
+```
+sudo docker run --env=NEO4J_dbms.directories.import=/import --env=NEO4J_dbms_memory_heap_maxSize=1G  --volume=$HOME/neo4j/import:/import --volume=$HOME/neo4j/data:/data neo4j:latest /var/lib/neo4j/bin/neo4j-shell -path /data -file /import/load.cql
+```
+
+> **Note:** Again, if running other commands as 'sudo', then run this command as 'sudo' as well. If you see `java.lang.OutOfMemoryError: Java heap space`, then you may need to increase the Java heap size with the *NEO4J_dbms_memory_heap_maxSize* environment variable noted above.
 
 
 ## Issues
