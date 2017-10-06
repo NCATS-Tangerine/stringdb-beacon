@@ -30,11 +30,11 @@ docker-compose build
 docker-compose up
 ```
 
-> **Note:** If you don't wish to set a password, you can simply not expose the database container's ports to your host machine. You can control which ports, if any at all, are exposed with the `docker-compose.yaml` file.
+> **Note:** If you don't wish to set a password, you can simply set NEO4J_AUTH=none. You can control which ports, if any at all, are exposed with the `docker-compose.yaml` file.
 
 The Neo4j container's data, import, logs, and config directories will be mounted on the host machine at `$HOME/neo4j`. All the data in the database, including the username and password, will persist in the `$HOME/neo4j/data` directory over multiple runs of the container.
 
-> **Note:** If the docker-compose commands are is giving you trouble, try running them as the system administrator with the `sudo` command. Remember, though, that if you are running  your commands as 'sudo', then $HOME will actually be '/root'. This has consequences for data importation (see below)
+> **Note:** If the docker-compose commands are is giving you trouble, try running them as the system administrator with the `sudo` command. Remember, though, that if you are running  your commands as 'sudo', then depending on how your Linux instance configures sudo, in some cases, $HOME may actually be '/root' or it may otherwise still be in your normal user home. This may consequences for data importation (see below)
 
 The API should now be running at http://localhost:5000/api, and the Neo4j browser user interface should be running at http://localhost:7474. You can open your browser with these addresses to see these applications in action. You wont see much until you load data into the database, though.
 
@@ -47,7 +47,7 @@ cd stringdb-beacon/neo4j
 python3 download_stringdb_data.py
 ```
 
-If you have used docker-compose to run the application, you will have a `neo4j/import` directory mounted in your $HOME directory. If you are running docker-compose as 'sudo', then you should also run the download script as 'sudo' so thta $HOME defaults to '/root', which is where your Docker neo4j database will expect to see the data.
+If you have used docker-compose to run the application, you will have a `neo4j/import` directory mounted in your $HOME directory. If you are running docker-compose as 'sudo', this directory may be '/root' in which case, you should may also run the download script as 'sudo' so thta $HOME defaults to '/root', which is where your Docker neo4j database will expect to see the data. If your $HOME directory is still your normal user home directory, you can likely still run this download script without sudo.
 
 Your Neo4j docker container should be named stringdbbeacon_db_1, run `docker-compose ps` to confirm this. We will execute the load.cql file, in the `neo4j` directory, using the Neo4j shell.
 
