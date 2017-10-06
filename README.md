@@ -66,6 +66,13 @@ sudo docker run --env=NEO4J_dbms.directories.import=/import --env=NEO4J_dbms_mem
 
 > **Note:** Again, if running other commands as 'sudo', then run this command as 'sudo' as well. If you see `java.lang.OutOfMemoryError: Java heap space`, then you may need to increase the Java heap size with the *NEO4J_dbms_memory_heap_maxSize* environment variable noted above.
 
+After loading, the database docker container may be restarted:
+
+```
+sudo docker-compose up db
+
+```
+and the data should now be visible through the Neo4j web client on port 7474.
 
 ## Issues
 
