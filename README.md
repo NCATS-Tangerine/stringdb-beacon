@@ -36,7 +36,7 @@ The Neo4j container's data, import, logs, and config directories will be mounted
 
 > **Note:** If the docker-compose commands are is giving you trouble, try running them as the system administrator with the `sudo` command. Remember, though, that if you are running  your commands as 'sudo', then depending on how your Linux instance configures sudo, in some cases, $HOME may actually be '/root' or it may otherwise still be in your normal user home. This may consequences for data importation (see below)
 
-The API should now be running at http://localhost:5000/api, and the Neo4j browser user interface should be running at http://localhost:7474. You can open your browser with these addresses to see these applications in action. You wont see much until you load data into the database, though.
+The REST API should now be running at http://localhost:5000/api, the Swagger web interface at http://localhost:5000/api/ui, and the Neo4j browser user interface at http://localhost:7474. You can open your browser with these addresses to see these applications in action. You wont see much until you load data into the database, though.
 
 ## Loading Data
 
